@@ -1,3 +1,5 @@
+To see the website in action: https://laurare.github.io/bmi_challenge/src/
+
 # BMI challenge
 
 Goal: write a JavaScript program that calculates an individual`s BMI index with metric and imperial methods.
