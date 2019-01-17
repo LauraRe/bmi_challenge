@@ -3,30 +3,96 @@
 
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- load MUI -->
+    <link href="http://cdn.muicss.com/mui-0.9.41/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="http://cdn.muicss.com/mui-0.9.41/js/mui.min.js"></script>
+    <title>BMI Calculator</title>
+    <style>
+        html,
+    body {
+    height: 100%;
+    }
+
+    html,
+    body,
+    input,
+    textarea,
+    button {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+    }
+
+    footer {
+        box-sizing: border-box;
+        height: 100px;
+        background-color: #eee;
+        border-top: 1px solid #e0e0e0;
+        padding-top: 35px;
+    }
+
+    #content-wrapper {
+        min-height: 100%;
+        margin-top: 10%;
+    }
+    #dropdown-button {
+        margin-top: 50px;
+    }
+    #calculator-section{
+        margin-top: 50px;
+    }
+    #calculate-button{
+        margin-top: 20px;
+    }
+    #result{
+        margin-top: 20px;
+    }
+    </style>
     <script src="js/person.js"></script>
     <script src="js/calculator.js"></script>
 </head>
 
 <body>
-    <h1> BMI Calculator</h1>
-    <h2>Please select your method! Metric or Imperial?</h2>
-    <select id="measurement-system">
-        <option value="metric">Metric method (kg/cm)</option>
-        <option value="imperial">Imperial method (lbs/inches)</option>
-    </select>
-    <form id="calculate">
-        <div id="measurement-inputs">
-            <input type="text" id="weight" placeholder="Weight">
-            <input type="text" id="height" placeholder="Height">
-        </div>
+    <div id="content-wrapper" class="mui-container mui--text-center">
+        <h1> BMI Calculator</h1>
+        <h2>Please select your method! Metric or Imperial?</h2>
 
-        <button type="submit" value="Calculate"> Calculate </button>
-    </form>
-    <div>
-        <span id="display_value"></span>
-        <span id="display_message"></span>
+
+        <div id="calculator-section">
+            <form id="calculate" class="mui-form">
+                <div id="dropdown-button" class="mui-select">
+                    <select id="measurement-system">
+                        <option value="metric">Metric method (kg/cm)</option>
+                        <option value="imperial">Imperial method (lbs/inches)</option>
+                    </select>
+                </div>
+                <div class="mui-textfield mui-textfield--float-label">
+                    <input type="text" id="weight" placeholder="Weight">
+                    <label>Required Weight</label>
+                </div>
+                <div class="mui-textfield mui-textfield--float-label">
+                    <input type="text" id="height" placeholder="Height">
+                    <label>Required Height</label>
+                </div>
+
+                <button id="calculate-button" class="mui-btn mui-btn--primary mui-btn--raised" type="submit" value="Calculate">
+                    Calculate </button>
+            </form>
+            <div id="result" class="mui--text-title">
+                <span id="display_value"></span>
+                <span id="display_message"></span>
+            </div>
+        </div>
     </div>
+
+    <footer>
+        <div class="mui-container mui--text-center">
+            Made by LauraRe!
+        </div>
+    </footer>
+
     <script type="text/javascript">
 
         const global = {}
@@ -40,8 +106,11 @@
                 event.preventDefault();
                 calculateBMI()
                     .then(person => {
+                        if (person.bmiValue === undefined) {
+                            return;
+                        }
                         global.displayValueElement.innerHTML = `Your BMI is ${person.bmiValue}`;
-                        global.displayMessageElement.innerHTML = `and you are ${person.bmiMessage}`;                       
+                        global.displayMessageElement.innerHTML = `and you are ${person.bmiMessage}.`;
                     })
             })
         });
